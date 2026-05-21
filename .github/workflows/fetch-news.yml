@@ -1,0 +1,41 @@
+name: ニュース自動取得
+
+on:
+  schedule:
+    # 毎時0分と30分に実行（UTC）→ 日本時間9:00〜翌9:00の範囲
+    - cron: '0,30 0-14 * * *'   # UTC 0:00〜14:30 = JST 9:00〜23:30
+    - cron: '0,30 15-23 * * *'  # UTC 15:00〜23:30 = JST 0:00〜8:30
+  
+  # 管理画面から手動実行もできるようにする
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: '実行理由（任意）'
+        required: false
+        default: '手動実行'
+
+jobs:
+  fetch-news:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: ニュース取得APIを呼び出す
+        run: |
+          echo "🔄 ニュース取得開始: $(date '+%Y-%m-%d %H:%M:%S')"
+          
+          RESPONSE=$(curl -s -o /tmp/response.json -w "%{http_code}" \
+            -X GET \
+            -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}" \
+            "${{ secrets.SITE_URL }}/api/cron/fetch-news")
+          
+          echo "HTTPステータス: $RESPONSE"
+          echo "レスポンス:"
+          cat /tmp/response.json
+          
+          if [ "$RESPONSE" != "200" ]; then
+            echo "❌ 取得失敗（ステータス: $RESPONSE）"
+            exit 1
+          fi
+          
+          echo "✅ ニュース取得完了"
