@@ -1,1 +1,1 @@
-{ "functions": { "src/app/api/cron/fetch-news/route.ts": { "maxDuration": 300 } } } 
+{} 
