@@ -82,7 +82,7 @@ async function archiveOldArticles() {
     .update({ is_archived: true })
     .lt('original_published_at', threshold)
     .eq('is_archived', false)
-    .select('id', { count: 'exact' });
+    .select('id');
 
   console.log(`[Cron] ${count}件をアーカイブ`);
 }
