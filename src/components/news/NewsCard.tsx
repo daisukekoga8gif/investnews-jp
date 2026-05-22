@@ -1,4 +1,4 @@
-import type { Article } from '@/types';
+﻿import type { Article } from '@/types';
 import { formatDistanceToNow } from '@/lib/utils/date';
 
 interface NewsCardProps {
