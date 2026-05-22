@@ -70,7 +70,7 @@ export default async function HomePage({ searchParams }: PageProps) {
 
       {/* メインコンテンツ */}
       <main style={{maxWidth:'1200px', margin:'0 auto', padding:'20px 16px'}}>
-        <div style={{display:'grid', gridTemplateColumns: isTopPage ? '1fr 320px' : '1fr', gap:'24px'}}>
+        <div style={{display:'grid', gridTemplateColumns: isTopPage ? 'minmax(0,1fr) 320px' : '1fr', gap:'24px'}} className={isTopPage ? 'main-grid' : ''}}>
           {/* 左：ニュースフィード */}
           <div>
             <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'16px'}}>
@@ -118,7 +118,7 @@ export default async function HomePage({ searchParams }: PageProps) {
 
           {/* 右：ランキング */}
           {isTopPage && rankings && (
-            <aside style={{display:'flex', flexDirection:'column', gap:'16px'}}>
+            <aside className="sidebar-desktop" style={{display:'flex', flexDirection:'column', gap:'16px'}}>
               {[
                 { title:'今注目のニュース', icon:'🏆', articles: rankings.top },
                 { title:'日本株ニュース', icon:'🇯🇵', articles: rankings.japan },
