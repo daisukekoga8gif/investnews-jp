@@ -3,88 +3,70 @@
 @tailwind utilities;
 
 :root {
-  --bg-primary: #0f172a;
-  --bg-secondary: #1e293b;
-  --bg-card: #1e293b;
-  --border: #334155;
-  --text-primary: #f1f5f9;
-  --text-secondary: #94a3b8;
-  --accent: #3b82f6;
-  --accent-hover: #2563eb;
-  --success: #22c55e;
-  --warning: #f59e0b;
-  --danger: #ef4444;
+  --bg-page:     #f2f2f2;
+  --bg-white:    #ffffff;
+  --bg-hover:    #f8f8f8;
+  --border:      #e0e0e0;
+  --border-light:#ebebeb;
+  --text-primary:#202124;
+  --text-secondary:#5f6368;
+  --text-muted:  #80868b;
+  --accent:      #1a73e8;
+  --accent-hover:#1557b0;
+  --accent-bg:   #e8f0fe;
+  --red:         #d93025;
+  --green:       #137333;
+  --amber:       #e37400;
 }
 
-* {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 
 body {
-  background-color: var(--bg-primary);
+  background-color: var(--bg-page);
   color: var(--text-primary);
+  font-family: 'Noto Sans JP', -apple-system, sans-serif;
   min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* スクロールバー */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-::-webkit-scrollbar-track {
-  background: var(--bg-secondary);
-}
-::-webkit-scrollbar-thumb {
-  background: #475569;
-  border-radius: 3px;
-}
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #dadce0; border-radius: 3px; }
 
-/* カテゴリタブ横スクロール（スマホ対応） */
-.category-tabs::-webkit-scrollbar {
-  display: none;
-}
-.category-tabs {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-/* スコアバー */
-@keyframes scoreBar {
-  from { width: 0; }
-  to { width: var(--score-width); }
-}
-
-.score-bar {
-  animation: scoreBar 0.8s ease-out forwards;
-}
+/* カテゴリタブ横スクロール */
+.category-tabs::-webkit-scrollbar { display: none; }
+.category-tabs { -ms-overflow-style: none; scrollbar-width: none; }
 
 /* カードホバー */
 .news-card {
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition: box-shadow 0.2s ease;
 }
 .news-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
 }
 
-/* ローディングスケルトン */
+/* スケルトン */
 @keyframes shimmer {
   0% { background-position: -200% 0; }
   100% { background-position: 200% 0; }
 }
-
 .skeleton {
-  background: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%);
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
   border-radius: 4px;
 }
 
 /* ランキング番号 */
-.rank-1 { color: #fbbf24; }
-.rank-2 { color: #94a3b8; }
-.rank-3 { color: #d97706; }
+.rank-1 { color: #fbbc04; font-weight: 700; }
+.rank-2 { color: #9aa0a6; font-weight: 700; }
+.rank-3 { color: #e37400; font-weight: 700; }
+
+/* フェードイン */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-in { animation: fadeIn 0.3s ease forwards; }

@@ -11,63 +11,48 @@ export default function RankingList({ title, articles, icon = '🏆' }: RankingL
   if (!articles || articles.length === 0) return null;
 
   return (
-    <section className="bg-slate-800/60 border border-slate-700 rounded-xl overflow-hidden">
-      {/* ヘッダー */}
-      <div className="flex items-center gap-2 px-4 sm:px-5 py-3.5 bg-slate-800 border-b border-slate-700">
-        <span className="text-lg leading-none">{icon}</span>
-        <h2 className="text-sm sm:text-base font-bold text-white">{title}</h2>
-        <span className="ml-auto text-xs text-slate-500">TOP{Math.min(articles.length, 10)}</span>
+    <section className="bg-white rounded-xl overflow-hidden" style={{border:'1px solid #e0e0e0'}}>
+      <div className="flex items-center gap-2 px-4 py-3" style={{borderBottom:'1px solid #f1f3f4'}}>
+        <span className="text-base leading-none">{icon}</span>
+        <h2 className="text-sm font-semibold" style={{color:'#202124'}}>{title}</h2>
+        <span className="ml-auto text-xs" style={{color:'#9aa0a6'}}>TOP{Math.min(articles.length, 10)}</span>
       </div>
 
-      {/* リスト */}
-      <ol className="divide-y divide-slate-700/50">
+      <ol className="divide-y" style={{borderColor:'#f1f3f4'}}>
         {articles.slice(0, 10).map((article, idx) => (
           <li key={article.id}>
             <a
               href={article.original_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-start gap-3 px-4 sm:px-5 py-3.5 hover:bg-slate-700/40 transition-colors group min-h-[56px]"
+              className="flex items-start gap-3 px-4 py-3 transition-colors group min-h-[52px]"
+              style={{}}
+              onMouseEnter={e => (e.currentTarget.style.background='#f8f9fa')}
+              onMouseLeave={e => (e.currentTarget.style.background='transparent')}
             >
-              {/* 順位 */}
-              <span className={`
-                flex-none w-6 h-6 flex items-center justify-center rounded text-xs font-bold mt-0.5
-                ${idx === 0 ? 'bg-yellow-500/20 text-yellow-400' :
-                  idx === 1 ? 'bg-slate-500/20 text-slate-300' :
-                  idx === 2 ? 'bg-orange-500/20 text-orange-400' :
-                  'text-slate-500'}
-              `}>
+              <span className={`flex-none w-5 h-5 flex items-center justify-center text-xs font-bold mt-0.5
+                ${idx === 0 ? 'rank-1' : idx === 1 ? 'rank-2' : idx === 2 ? 'rank-3' : ''}`}
+                style={idx > 2 ? {color:'#9aa0a6'} : {}}>
                 {idx + 1}
               </span>
-
-              {/* コンテンツ */}
               <div className="flex-1 min-w-0">
-                <p className="text-xs sm:text-sm text-slate-200 leading-snug line-clamp-2 group-hover:text-blue-300 transition-colors">
+                <p className="text-xs sm:text-sm leading-snug line-clamp-2 transition-colors group-hover:text-blue-600"
+                  style={{color:'#202124'}}>
                   {article.original_title}
                 </p>
-                <div className="flex items-center gap-2 mt-1.5">
-                  <span className="text-[10px] text-slate-500 truncate max-w-[100px]">
+                <div className="flex items-center gap-1.5 mt-1">
+                  <span className="text-[11px] truncate max-w-[100px]" style={{color:'#1a73e8'}}>
                     {article.source_name}
                   </span>
-                  <span className="text-[10px] text-slate-600">·</span>
-                  <span className="text-[10px] text-slate-500 flex-none">
+                  <span className="text-[11px]" style={{color:'#dadce0'}}>·</span>
+                  <span className="text-[11px] flex-none" style={{color:'#9aa0a6'}}>
                     {formatDistanceToNow(article.original_published_at || article.created_at)}
                   </span>
-                  {article.score_total >= 60 && (
-                    <>
-                      <span className="text-[10px] text-slate-600">·</span>
-                      <span className="text-[10px] text-green-400 font-medium flex-none">
-                        スコア {Math.round(article.score_total)}
-                      </span>
-                    </>
-                  )}
                 </div>
               </div>
-
-              {/* 矢印 */}
-              <span className="flex-none text-slate-600 group-hover:text-blue-400 transition-colors text-xs mt-1">
-                →
-              </span>
+              <svg className="flex-none w-3.5 h-3.5 mt-1 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="#1a73e8" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
             </a>
           </li>
         ))}
