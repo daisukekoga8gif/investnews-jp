@@ -1,7 +1,7 @@
 import { supabase } from '@/lib/supabase';
 import type { Article } from '@/types';
 import { formatDistanceToNow } from '@/lib/utils/date';
-
+import RankingSidebar from '@/components/news/RankingSidebar';
 export const revalidate = 1800;
 
 interface PageProps {
