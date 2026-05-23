@@ -118,7 +118,7 @@ export default async function HomePage({ searchParams }: PageProps) {
 
           {/* 右：ランキング */}
           {isTopPage && rankings && (
-            <aside className="hidden md:flex flex-col gap-4">
+            <aside style={{display:'none'}} className="md-sidebar">
               {[
                 { title:'今注目のニュース', icon:'🏆', articles: rankings.top },
                 { title:'日本株ニュース', icon:'🇯🇵', articles: rankings.japan },
