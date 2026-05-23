@@ -70,7 +70,7 @@ export default async function HomePage({ searchParams }: PageProps) {
 
       {/* メインコンテンツ */}
       <main style={{maxWidth:'1200px', margin:'0 auto', padding:'20px 16px'}}>
-        <div style={{display:'grid', gridTemplateColumns: isTopPage ? 'minmax(0,1fr) 320px' : '1fr', gap:'24px'}} className={isTopPage ? 'main-grid' : ''}>
+        <div className={isTopPage ? 'grid grid-cols-1 md:grid-cols-[1fr_320px] gap-6' : 'grid grid-cols-1'}>
           {/* 左：ニュースフィード */}
           <div>
             <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'16px'}}>
