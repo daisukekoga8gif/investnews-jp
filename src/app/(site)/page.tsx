@@ -1,3 +1,4 @@
+import { headers } from 'next/headers';
 import { supabase } from '@/lib/supabase';
 import type { Article } from '@/types';
 import { formatDistanceToNow } from '@/lib/utils/date';
@@ -117,7 +118,11 @@ export default async function HomePage({ searchParams }: PageProps) {
           </div>
 
           {/* 右：ランキング */}
-      {isTopPage && rankings && <RankingSidebar rankings={rankings} />}
+      {isTopPage && rankings && (
+  <div className="hidden md:block">
+    <RankingSidebar rankings={rankings} />
+  </div>
+)}
         </div>
       </main>
 
