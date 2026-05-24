@@ -50,7 +50,7 @@ export async function analyzeArticle(
 `;
 
   const message = await client.messages.create({
-    model: 'claude-sonnet-4-20250514',
+    model: 'claude-sonnet-4-6',
     max_tokens: 800,
     system: SYSTEM_PROMPT,
     messages: [{ role: 'user', content: userMessage }],
@@ -89,7 +89,7 @@ export async function generateXPost(article: {
   ai_tags: string[];
 }): Promise<string> {
   const message = await client.messages.create({
-    model: 'claude-sonnet-4-20250514',
+    model: 'claude-sonnet-4-6',
     max_tokens: 400,
     messages: [
       {
