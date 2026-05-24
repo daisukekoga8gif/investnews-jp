@@ -55,7 +55,14 @@ export default async function AdminDashboard() {
       {/* 手動Cron実行ボタン */}
       <div className="bg-slate-800 rounded-xl p-4 border border-slate-700">
         <h2 className="text-sm font-semibold text-white mb-3">手動操作</h2>
-        <FetchButton />
+        <div className="flex flex-wrap gap-3">
+          <FetchButton />
+          <BackfillButton />
+        </div>
+        <p className="text-[11px] text-slate-500 mt-3">
+          ※ バックフィルは過去記事のうち AI 要約が欠落している分（最大 30 件/回）を Sonnet 4.6 で再分析します。
+          完了後に has_more が true なら再度押してください。1 回 60〜90 秒ほどかかります。
+        </p>
       </div>
 
       {/* 最近の記事 */}
@@ -110,6 +117,19 @@ function FetchButton() {
         className="px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium transition-colors min-h-[44px]"
       >
         🔄 今すぐニュース取得
+      </button>
+    </form>
+  );
+}
+
+function BackfillButton() {
+  return (
+    <form action="/api/admin/backfill-ai-trigger" method="POST">
+      <button
+        type="submit"
+        className="px-4 py-2.5 bg-purple-600 hover:bg-purple-700 text-white rounded-lg text-sm font-medium transition-colors min-h-[44px]"
+      >
+        🧠 AI要約バックフィル実行
       </button>
     </form>
   );
