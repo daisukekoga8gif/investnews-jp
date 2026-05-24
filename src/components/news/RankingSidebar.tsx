@@ -1,16 +1,6 @@
-'use client';
-import { useEffect, useState } from 'react';
 import type { Article } from '@/types';
 
 export default function RankingSidebar({ rankings }: { rankings: { top: Article[], japan: Article[], us: Article[] } }) {
-  const [show, setShow] = useState(false);
-  
-  useEffect(() => {
-    setShow(window.innerWidth >= 769);
-  }, []);
-
-  if (!show) return null;
-
   return (
     <aside style={{display:'flex', flexDirection:'column', gap:'16px'}}>
       {[
