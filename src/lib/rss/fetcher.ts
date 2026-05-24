@@ -15,6 +15,22 @@ const parser = new Parser({
   },
 });
 
+// AI が投資関連と判定したカテゴリのみ公開対象
+const PUBLISHABLE_CATEGORIES = new Set<string>([
+  '速報',
+  '日本株',
+  '米国株',
+  '為替・金利',
+  '決算・個別株',
+  'テーマ株',
+  '高配当・優待',
+  '新NISA・投資信託',
+  '暗号資産',
+  '経済・政策',
+  '海外市場',
+]);
+const MIN_IMPACT_SCORE = 26;
+
 /**
  * 全アクティブソースからニュースを取得
  */
@@ -140,6 +156,19 @@ async function processItem(
     snsScore: aiResult.score_sns,
   });
 
+  // 投資・経済と無関係な記事を非公開化
+  // - AI 分類が許可カテゴリ外（例: ライフスタイル、グルメ、健康など）
+  // - または市場影響度スコアが基準値以下
+  const isPublishable =
+    PUBLISHABLE_CATEGORIES.has(aiResult.category) &&
+    aiResult.score_impact >= MIN_IMPACT_SCORE;
+
+  if (!isPublishable) {
+    console.log(
+      `[除外] category=${aiResult.category} impact=${aiResult.score_impact}: ${item.title.slice(0, 50)}`
+    );
+  }
+
   await supabaseAdmin.from('articles').insert({
     source_id: source.id,
     original_url: item.link,
@@ -159,7 +188,7 @@ async function processItem(
     score_total: scores.total,
     article_hash: articleHash,
     category: aiResult.category,
-    is_published: true,
+    is_published: isPublishable,
     is_archived: false,
   });
 
