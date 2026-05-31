@@ -3,7 +3,7 @@ import { supabase } from '@/lib/supabase';
 import type { Article } from '@/types';
 import { formatDistanceToNow } from '@/lib/utils/date';
 import RankingSidebar from '@/components/news/RankingSidebar';
-export const revalidate = 1800;
+export const revalidate = 60;
 
 interface PageProps {
   searchParams: { category?: string; page?: string; sortBy?: string };
