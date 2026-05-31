@@ -2,7 +2,7 @@ import { headers } from 'next/headers';
 import { supabase } from '@/lib/supabase';
 import type { Article } from '@/types';
 import { formatDistanceToNow } from '@/lib/utils/date';
-import RankingSidebar from '@/components/news/RankingSidebar';
+import RankingSidebar from '@/components/news/RankingList';
 export const revalidate = 60;
 
 interface PageProps {
