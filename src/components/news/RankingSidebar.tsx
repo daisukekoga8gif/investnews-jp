@@ -4,7 +4,6 @@ export default function RankingSidebar({ rankings }: { rankings: { top: Article[
   return (
     <aside style={{display:'flex', flexDirection:'column', gap:'16px'}}>
       {[
-        { title:'今注目のニュース', icon:'🏆', articles: rankings.top },
         { title:'日本株ニュース', icon:'🇯🇵', articles: rankings.japan },
         { title:'米国株ニュース', icon:'🇺🇸', articles: rankings.us },
       ].map(section => (
