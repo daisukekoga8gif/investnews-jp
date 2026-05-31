@@ -21,10 +21,10 @@ async function getArticles(category?: string, page = 1, sortBy = 'score') {
   const { data, count } = await query.range(offset, offset + limit - 1);
   return { articles: (data || []) as Article[], total: count || 0 };
 }
-
+const INVESTMENT_CATEGORIES = ['速報','日本株','米国株','為替・金利','決算・個別株','テーマ株','高配当・優待','新NISA・投資信託','暗号資産','経済・政策','海外市場'];
 async function getRankings() {
   const [top, japan, us] = await Promise.all([
-    supabase.from('articles').select('*').eq('is_published', true).eq('is_archived', false).order('score_total', { ascending: false }).limit(10),
+    supabase.from('articles').select('*').eq('is_published', true).eq('is_archived', false).in('category', INVESTMENT_CATEGORIES).order('score_total', { ascending: false }).limit(10),
     supabase.from('articles').select('*').eq('is_published', true).eq('is_archived', false).eq('category', '日本株').order('score_total', { ascending: false }).limit(10),
     supabase.from('articles').select('*').eq('is_published', true).eq('is_archived', false).eq('category', '米国株').order('score_total', { ascending: false }).limit(10),
   ]);
@@ -71,7 +71,7 @@ export default async function HomePage({ searchParams }: PageProps) {
 
       {/* メインコンテンツ */}
       <main style={{maxWidth:'1200px', margin:'0 auto', padding:'20px 16px'}}>
-        <div className={isTopPage ? 'main-grid grid grid-cols-1 md:grid-cols-[1fr_320px] gap-6' : 'grid grid-cols-1'}>
+        <div className={isTopPage ? 'grid grid-cols-1 md:grid-cols-[1fr_320px] gap-6' : 'grid grid-cols-1'}>
           {/* 左：ニュースフィード */}
           <div>
             <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'16px'}}>
