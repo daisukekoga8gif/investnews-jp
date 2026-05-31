@@ -119,11 +119,11 @@ export default async function HomePage({ searchParams }: PageProps) {
           </div>
 
           {/* 右：ランキング */}
-      {isTopPage && rankings && (
-  <div className="sidebar-desktop hidden md:block">
-    <RankingSidebar rankings={rankings} />
-  </div>
-)}
+ {isTopPage && rankings && (
+            <div className="sidebar-desktop hidden md:block">
+              <RankingSidebar rankings={rankings} />
+            </div>
+          )}
         </div>
       </main>
 
