@@ -76,5 +76,10 @@ vercel-live-feedback,
 .__vercel_toolbar {
   display: none !important;
 }
-
+/* スマホ：ランキングサイドバーを非表示（CSSフォールバック） */
+@media (max-width: 767px) {
+  .sidebar-desktop {
+    display: none !important;
+  }
+}
 
