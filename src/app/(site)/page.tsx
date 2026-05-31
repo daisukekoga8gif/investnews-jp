@@ -23,12 +23,13 @@ async function getArticles(category?: string, page = 1, sortBy = 'score') {
 }
 const INVESTMENT_CATEGORIES = ['速報','日本株','米国株','為替・金利','決算・個別株','テーマ株','高配当・優待','新NISA・投資信託','暗号資産','経済・政策','海外市場'];
 async function getRankings() {
-  const [top, japan, us] = await Promise.all([
-    supabase.from('articles').select('*').eq('is_published', true).eq('is_archived', false).in('category', INVESTMENT_CATEGORIES).order('score_total', { ascending: false }).limit(10),
+  const [japan, us, forex, crypto] = await Promise.all([
     supabase.from('articles').select('*').eq('is_published', true).eq('is_archived', false).eq('category', '日本株').order('score_total', { ascending: false }).limit(10),
     supabase.from('articles').select('*').eq('is_published', true).eq('is_archived', false).eq('category', '米国株').order('score_total', { ascending: false }).limit(10),
+    supabase.from('articles').select('*').eq('is_published', true).eq('is_archived', false).eq('category', '為替・金利').order('score_total', { ascending: false }).limit(10),
+    supabase.from('articles').select('*').eq('is_published', true).eq('is_archived', false).eq('category', '暗号資産').order('score_total', { ascending: false }).limit(10),
   ]);
-  return { top: (top.data || []) as Article[], japan: (japan.data || []) as Article[], us: (us.data || []) as Article[] };
+  return { japan: (japan.data || []) as Article[], us: (us.data || []) as Article[], forex: (forex.data || []) as Article[], crypto: (crypto.data || []) as Article[] };
 }
 
 export default async function HomePage({ searchParams }: PageProps) {
