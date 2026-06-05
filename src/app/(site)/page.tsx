@@ -9,7 +9,7 @@ interface PageProps {
   searchParams: { category?: string; page?: string; sortBy?: string };
 }
 
-const CATEGORIES = ['すべて','速報','日本株','米国株','為替・金利','決算・個別株','テーマ株','高配当・優待','新NISA・投資信託','暗号資産','経済・政策','海外市場'];
+const CATEGORIES = ['すべて','速報','日本株','米国株','テーマ株','高配当・優待','新NISA・投資信託','暗号資産','経済・政策','海外市場'];
 
 async function getArticles(category?: string, page = 1, sortBy = 'score') {
   const limit = 20;
